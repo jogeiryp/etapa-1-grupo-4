@@ -9,28 +9,35 @@
 - Adolfo Bienvenido Paulino Ruiz
 - Jogeiry Raquel Pérez Mora
 
-## Descripción del proyecto
-Este repositorio contiene la **Etapa 1** del proyecto integrador: la maquetación de un **Dashboard/Home** para una **Clínica Odontológica**.  
-En esta fase se construye la base visual y estructural utilizando **HTML5 semántico** y **CSS externo**, garantizando un diseño **responsive**.
+## Descripción
+Maquetación de un **Dashboard/Home** para una **Clínica Odontológica**, utilizando **HTML5 semántico** y **CSS externo** con diseño **responsive**.  
+Incluye navegación visual (Inicio, Pacientes, Citas, Servicios) y un **formulario** para registrar citas.
 
-## Qué incluye
-- Interfaz principal tipo **Dashboard** (Home).
-- **Formulario de registro** de datos (cita odontológica).
-- Estructura semántica con `header`, `nav`, `main`, `aside` y `footer`.
-- Hoja de estilos externa con los colores institucionales:
+## Tecnologías
+- HTML5
+- CSS3
+
+## Requisitos cumplidos (Etapa 1)
+- Uso de etiquetas semánticas: `header`, `nav`, `main`, `aside`, `footer`
+- CSS externo con colores institucionales:
   - Azul: `#0b1838`
   - Naranja: `#F68121`
-- Adaptación a móvil mediante **Media Queries** (y layout flexible).
+- Diseño responsive (Media Queries + Grid/Flex)
+- Proyecto publicado en GitHub Pages
+
+## Archivos
+- `index.html` — estructura y contenido del dashboard
+- `styles.css` — estilos y responsive
+- `README.md` — descripción del proyecto
 
 ## Cómo ejecutar (local)
 - Abrir `index.html` en el navegador, o
-- En VS Code usar **Live Server**: click derecho en `index.html` → *Open with Live Server*.
+- Usar **Live Server** en VS Code: click derecho en `index.html` → *Open with Live Server*.
 
-## Entrega / Publicación
-- Repositorio: https://github.com/jogeiryp/etapa-1-grupo-4  
-- GitHub Pages: https://jogeiryp.github.io/etapa-1-grupo-4/  
+## Enlaces
+- Repositorio: https://github.com/jogeiryp/etapa-1-grupo-4
+- GitHub Pages: https://jogeiryp.github.io/etapa-1-grupo-4/
 
-## Verificación antes de entregar
-- [ ] No hay errores en consola (F12 → Console).
-- [ ] Se ve bien en móvil y escritorio.
-- [ ] `index.html` y `styles.css` están en la raíz del repositorio.
+## Nota
+Si la página no se actualiza de inmediato en GitHub Pages, realizar una recarga fuerte:
+**Ctrl + Shift + R**.
