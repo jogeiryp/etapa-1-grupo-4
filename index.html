@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica Odontológica Sonrisa</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__inner">
+      <div class="brand">
+        <span class="brand__icon" aria-hidden="true">🦷</span>
+        <div>
+          <h1>Clínica Odontológica Sonrisa</h1>
+          <p>Atención • Citas • Servicios dentales</p>
+        </div>
+      </div>
+
+      <div class="header__right">
+        <span class="status"><span class="dot"></span> Abierto</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="Navegación principal">
+    <a class="nav__link active" href="#inicio" data-page="inicio">Inicio</a>
+    <a class="nav__link" href="#pacientes" data-page="pacientes">Pacientes</a>
+    <a class="nav__link" href="#citas" data-page="citas">Citas</a>
+    <a class="nav__link" href="#servicios" data-page="servicios">Servicios</a>
+  </nav>
+
+  <div class="layout">
+    <main class="main">
+      <!-- INICIO -->
+      <section id="inicio" class="page">
+        <section class="card">
+          <h2>Home / Dashboard</h2>
+          <p>
+            Bienvenido/a. Desde este panel puedes registrar citas y visualizar información general del consultorio.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>Registrar cita odontológica</h2>
+
+          <form class="form">
+            <div class="field">
+              <label for="paciente">Nombre del paciente</label>
+              <input id="paciente" type="text" placeholder="Ej: Juan Pérez" required />
+            </div>
+
+            <div class="field">
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" type="tel" placeholder="Ej: 8090000000" required />
+            </div>
+
+            <div class="field">
+              <label for="fecha">Fecha</label>
+              <input id="fecha" type="date" required />
+            </div>
+
+            <div class="field">
+              <label for="hora">Hora</label>
+              <input id="hora" type="time" required />
+            </div>
+
+            <div class="field field-full">
+              <label for="servicio">Servicio</label>
+              <select id="servicio" required>
+                <option value="">Selecciona un servicio</option>
+                <option>Limpieza dental</option>
+                <option>Blanqueamiento</option>
+                <option>Ortodoncia</option>
+                <option>Extracción</option>
+                <option>Empaste (resina)</option>
+                <option>Endodoncia</option>
+              </select>
+            </div>
+
+            <div class="field field-full">
+              <label for="motivo">Motivo / Observación</label>
+              <input id="motivo" type="text" placeholder="Ej: dolor en muela, control, etc." required />
+            </div>
+
+            <button class="btn" type="submit">Guardar cita</button>
+          </form>
+        </section>
+      </section>
+
+      <!-- PACIENTES (puede quedar en blanco) -->
+      <section id="pacientes" class="page hidden" aria-hidden="true">
+        <section class="card">
+          <h2>Pacientes</h2>
+          <p class="muted">Sección disponible para la siguiente etapa.</p>
+        </section>
+      </section>
+
+      <!-- CITAS (puede quedar en blanco) -->
+      <section id="citas" class="page hidden" aria-hidden="true">
+        <section class="card">
+          <h2>Citas</h2>
+          <p class="muted">Sección disponible para la siguiente etapa.</p>
+        </section>
+      </section>
+
+      <!-- SERVICIOS (puede quedar en blanco) -->
+      <section id="servicios" class="page hidden" aria-hidden="true">
+        <section class="card">
+          <h2>Servicios</h2>
+          <p class="muted">Sección disponible para la siguiente etapa.</p>
+        </section>
+      </section>
+    </main>
+
+    <aside class="aside">
+      <h3>Información rápida</h3>
+      <ul class="aside__list">
+        <li><strong>Horario:</strong> 8:00 AM - 5:00 PM</li>
+        <li><strong>Teléfono:</strong> (809) 572-7275</li>
+        <li><strong>Recordatorio:</strong> Confirmar citas del día</li>
+      </ul>
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 Clínica Odontológica Sonrisa | Grupo 4</p>
+  </footer>
+
+  <script>
+    (function () {
+      const links = document.querySelectorAll(".nav__link");
+      const pages = document.querySelectorAll(".page");
+
+      function showPage(pageId) {
+        pages.forEach((p) => {
+          const isActive = p.id === pageId;
+          p.classList.toggle("hidden", !isActive);
+          p.setAttribute("aria-hidden", String(!isActive));
+        });
+
+        links.forEach((a) => {
+          a.classList.toggle("active", a.dataset.page === pageId);
+        });
+      }
+
+      // Click en navegación
+      links.forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const pageId = a.dataset.page;
+          history.replaceState(null, "", "#" + pageId);
+          showPage(pageId);
+        });
+      });
+
+      // Al cargar: usar hash si existe
+      const initial = (location.hash || "#inicio").replace("#", "");
+      showPage(initial);
+    })();
+  </script>
+</body>
+</html>
