@@ -1,4 +1,4 @@
-# Proyecto Integrador - Etapa 1 (Maquetación) — Grupo 4
+# Etapa 1 (Maquetación) — Grupo 4
 
 ## Participantes
 - Stuart Brandon Capellán De Los Santos
