@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica Odontológica - Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__inner">
+      <div class="brand">
+        <div class="brand__icon" aria-hidden="true">🦷</div>
+        <div class="brand__text">
+          <h1>Clínica Odontológica Sonrisa</h1>
+          <p>Atención • Citas • Servicios dentales</p>
+        </div>
+      </div>
+
+      <div class="header__actions">
+        <div class="status">
+          <span class="status__dot"></span>
+          <span>Abierto</span>
+        </div>
+        <a class="btn btn--ghost" href="#cita">+ Nueva cita</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a class="nav__link nav__link--active" href="#">Inicio</a>
+    <a class="nav__link" href="#">Pacientes</a>
+    <a class="nav__link" href="#">Citas</a>
+    <a class="nav__link" href="#">Servicios</a>
+    <a class="nav__link" href="#">Pagos</a>
+  </nav>
+
+  <div class="layout">
+    <main class="main">
+      <!-- Acciones rápidas -->
+      <section class="card card--highlight">
+        <div class="card__head">
+          <h2>Acciones rápidas</h2>
+          <p>Hazlo en 1 clic para ahorrar tiempo.</p>
+        </div>
+
+        <div class="quick">
+          <button class="chip" type="button">📌 Confirmar citas</button>
+          <button class="chip" type="button">🧼 Esterilización</button>
+          <button class="chip" type="button">📦 Revisar inventario</button>
+          <button class="chip" type="button">🧾 Registrar pago</button>
+        </div>
+      </section>
+
+      <!-- Indicadores -->
+      <section class="grid">
+        <article class="metric">
+          <div class="metric__top">
+            <span class="metric__tag">Hoy</span>
+            <span class="metric__icon" aria-hidden="true">📅</span>
+          </div>
+          <h3>10</h3>
+          <p>Citas programadas</p>
+        </article>
+
+        <article class="metric">
+          <div class="metric__top">
+            <span class="metric__tag">Prioridad</span>
+            <span class="metric__icon" aria-hidden="true">⚡</span>
+          </div>
+          <h3>2</h3>
+          <p>Emergencias</p>
+        </article>
+
+        <article class="metric">
+          <div class="metric__top">
+            <span class="metric__tag">Pendiente</span>
+            <span class="metric__icon" aria-hidden="true">💳</span>
+          </div>
+          <h3>4</h3>
+          <p>Pagos por validar</p>
+        </article>
+      </section>
+
+      <!-- Lista creativa de citas -->
+      <section class="card">
+        <div class="card__head card__head--row">
+          <div>
+            <h2>Citas de hoy</h2>
+            <p>Vista rápida del flujo del consultorio.</p>
+          </div>
+          <span class="pill">Última actualización: 09:15 AM</span>
+        </div>
+
+        <div class="appointments">
+          <div class="appt appt--orange">
+            <div class="appt__time">09:00</div>
+            <div class="appt__info">
+              <strong>Ana Gómez</strong>
+              <span>Limpieza • Consultorio 1</span>
+            </div>
+            <span class="appt__badge">Confirmada</span>
+          </div>
+
+          <div class="appt appt--blue">
+            <div class="appt__time">10:30</div>
+            <div class="appt__info">
+              <strong>Carlos Díaz</strong>
+              <span>Ortodoncia • Consultorio 2</span>
+            </div>
+            <span class="appt__badge">En espera</span>
+          </div>
+
+          <div class="appt appt--orange">
+            <div class="appt__time">12:00</div>
+            <div class="appt__info">
+              <strong>María Pérez</strong>
+              <span>Endodoncia • Consultorio 1</span>
+            </div>
+            <span class="appt__badge">Pendiente</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Formulario (lo que te piden) -->
+      <section id="cita" class="card">
+        <div class="card__head">
+          <h2>Registrar cita odontológica</h2>
+          <p>Completa los datos del paciente y el servicio.</p>
+        </div>
+
+        <form class="form">
+          <div class="field">
+            <label for="paciente">Nombre del paciente</label>
+            <input id="paciente" type="text" placeholder="Ej: Juan Pérez" required />
+          </div>
+
+          <div class="field">
+            <label for="telefono">Teléfono</label>
+            <input id="telefono" type="tel" placeholder="Ej: 8090000000" required />
+          </div>
+
+          <div class="field">
+            <label for="fecha">Fecha</label>
+            <input id="fecha" type="date" required />
+          </div>
+
+          <div class="field">
+            <label for="hora">Hora</label>
+            <input id="hora" type="time" required />
+          </div>
+
+          <div class="field field--full">
+            <label for="servicio">Servicio</label>
+            <select id="servicio" required>
+              <option value="">Selecciona un servicio</option>
+              <option>Limpieza dental</option>
+              <option>Blanqueamiento</option>
+              <option>Ortodoncia</option>
+              <option>Extracción</option>
+              <option>Empaste (resina)</option>
+              <option>Endodoncia</option>
+            </select>
+          </div>
+
+          <div class="field field--full">
+            <label for="motivo">Motivo / Observación</label>
+            <input id="motivo" type="text" placeholder="Ej: dolor en muela, control, etc." required />
+          </div>
+
+          <div class="form__actions">
+            <button class="btn btn--primary" type="submit">Guardar cita</button>
+            <button class="btn btn--ghost" type="reset">Limpiar</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <aside class="aside">
+      <section class="sidecard">
+        <h3>Agenda rápida</h3>
+        <p class="muted">Próximas atenciones en orden.</p>
+
+        <div class="timeline">
+          <div class="tl">
+            <span class="tl__dot"></span>
+            <div class="tl__body">
+              <strong>11:00 AM</strong>
+              <span>Evaluación • Brackets</span>
+            </div>
+          </div>
+
+          <div class="tl">
+            <span class="tl__dot"></span>
+            <div class="tl__body">
+              <strong>01:30 PM</strong>
+              <span>Blanqueamiento</span>
+            </div>
+          </div>
+
+          <div class="tl">
+            <span class="tl__dot"></span>
+            <div class="tl__body">
+              <strong>03:00 PM</strong>
+              <span>Extracción • Urgencia</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sidecard">
+        <h3>Checklist del consultorio</h3>
+        <ul class="check">
+          <li>✔ Esterilización lista</li>
+          <li>✔ Materiales preparados</li>
+          <li>✳ Confirmar 2 citas</li>
+          <li>✳ Revisar stock de guantes</li>
+        </ul>
+
+        <div class="mini">
+          <div class="mini__item">
+            <span class="mini__label">Box</span>
+            <span class="mini__value">02</span>
+          </div>
+          <div class="mini__item">
+            <span class="mini__label">Turnos</span>
+            <span class="mini__value">AM</span>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 Clínica Odontológica Sonrisa | Etapa 1 - Maquetación (HTML + CSS)</p>
+  </footer>
+</body>
+</html>
