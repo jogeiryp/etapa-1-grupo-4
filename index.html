@@ -127,9 +127,6 @@
   <footer class="footer">
     <p>© 2026 Clínica Odontológica Sonrisa | Grupo 4</p>
   </footer>
-  
-      const links = document.querySelectorAll(".nav__link");
-      const pages = document.querySelectorAll(".page");
 
       function showPage(pageId) {
         pages.forEach((p) => {
@@ -157,6 +154,5 @@
       const initial = (location.hash || "#inicio").replace("#", "");
       showPage(initial);
     })();
-  </script>
 </body>
 </html>
