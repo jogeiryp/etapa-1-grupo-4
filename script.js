@@ -1,44 +1,29 @@
-document.addEventListener("DOMContentLoaded", function(){
+(function () {
+   const links = document.querySelectorAll(".nav__link");
+   const pages = document.querySelectorAll(".page");
 
-const formulario = document.querySelector("#formulario");
-const mensaje = document.querySelector("#mensaje");
+   function showPage(pageId) {
+      pages.forEach((p) => {
+         const isActive = p.id === pageId;
+         p.classList.toggle("hidden", !isActive);
+         p.setAttribute("aria-hidden", String(!isActive));
+      });
 
-formulario.addEventListener("submit", function(e){
+      links.forEach((a) => {
+         a.classList.toggle("active", a.dataset.page === pageId);
+      });
+   }
 
-e.preventDefault();
+   links.forEach((a) => {
+      a.addEventListener("click", (e) => {
+         e.preventDefault();
+         const pageId = a.dataset.page;
+         history.replaceState(null, "", "#" + pageId);
+         showPage(pageId);
+      });
+   });
 
-let nombre = document.querySelector("#nombre").value.trim();
-let correo = document.querySelector("#correo").value.trim();
+   const initial = (location.hash || "#inicio").replace("#", "");
+   showPage(initial);
 
-if(nombre === "" || correo === ""){
-
-mensaje.innerHTML = "Todos los campos son obligatorios";
-mensaje.classList.add("error");
-
-return;
-
-}
-
-if(!correo.includes("@")){
-
-mensaje.innerHTML = "Correo electrónico inválido";
-mensaje.classList.add("error");
-
-return;
-
-}
-
-mensaje.innerHTML = "Formulario enviado correctamente";
-mensaje.classList.remove("error");
-mensaje.classList.add("exito");
-
-let datos = {
-nombre: nombre,
-correo: correo
-};
-
-localStorage.setItem("usuario", JSON.stringify(datos));
-
-});
-
-});
+})();
