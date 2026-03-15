@@ -1,7 +1,7 @@
 # Etapa 1 (Maquetación) — Grupo 4
 
 ## Participantes
-- Stuart Brandon Capellán De Los Santos
+- Stuart Brandon Capellan De Los Santos
 - Railyn Capellán Rodríguez
 - Smailyin Ceballo Viva
 - Ybanez Cepeda Ortega
