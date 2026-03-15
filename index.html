@@ -127,32 +127,8 @@
   <footer class="footer">
     <p>© 2026 Clínica Odontológica Sonrisa | Grupo 4</p>
   </footer>
-
-      function showPage(pageId) {
-        pages.forEach((p) => {
-          const isActive = p.id === pageId;
-          p.classList.toggle("hidden", !isActive);
-          p.setAttribute("aria-hidden", String(!isActive));
-        });
-
-        links.forEach((a) => {
-          a.classList.toggle("active", a.dataset.page === pageId);
-        });
-      }
-
-      // Click en navegación
-      links.forEach((a) => {
-        a.addEventListener("click", (e) => {
-          e.preventDefault();
-          const pageId = a.dataset.page;
-          history.replaceState(null, "", "#" + pageId);
-          showPage(pageId);
-        });
-      });
-
-      // Al cargar: usar hash si existe
-      const initial = (location.hash || "#inicio").replace("#", "");
-      showPage(initial);
-    })();
+  
+<script src="script.js"></script>
+  
 </body>
 </html>
