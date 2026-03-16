@@ -161,7 +161,7 @@ body{
 .aside{
   background: rgba(255,255,255,0.92);
   border: 1px solid rgba(229,231,235,0.85);
-  border-radius: var(--radio);
+  border-radius: 16px;
   padding: 16px;
   box-shadow: var(--sombra);
   height: fit-content;
