@@ -5,7 +5,7 @@
 - Railyn Capellán Rodríguez
 - Smailyin Ceballo Viva
 - Ybanez Cepeda Ortega
-- Joan Manuel Diloné Camacho
+- Joan Manuel Diloné Camacho.
 - Adolfo Bienvenido Paulino Ruiz
 - Jogeiry Raquel Pérez Mora
 
