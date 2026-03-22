@@ -1,133 +1,348 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clínica Odontológica Sonrisa</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Clínica Odontológica Sonrisa | Sistema Interno</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Font Awesome 6 (gratuito) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
 <body>
-  <header class="header">
-    <div class="header__inner">
-      <div class="brand">
-        <span class="brand__icon" aria-hidden="true">🦷</span>
-        <div>
-          <h1>Clínica Odontológica Sonrisa</h1>
-          <p>Atención • Citas • Servicios dentales</p>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="header">
+        <div class="header__inner">
+            <div class="brand">
+                <span class="brand__icon">🦷</span>
+                <div>
+                    <h1>Clínica Odontológica Sonrisa</h1>
+                    <p id="userRoleDisplay">Sistema Interno • <span id="userNameDisplay">Invitado</span></p>
+                    <div class="live-datetime" id="liveDatetime"></div>
+                </div>
+            </div>
+            <div class="header__right">
+                <div id="loginInfo" class="login-info"></div>
+                <button id="logoutBtn" class="btn-logout" style="display: none;">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
         </div>
-      </div>
+    </header>
 
-      <div class="header__right">
-        <span class="status"><span class="dot"></span> Abierto</span>
-      </div>
+    <!-- ==================== NAVEGACIÓN ==================== -->
+    <nav class="nav" aria-label="Navegación principal">
+        <a class="nav__link active" href="#" data-page="dashboard">
+            <i class="fas fa-home"></i> Dashboard
+        </a>
+        <a class="nav__link" href="#" data-page="pacientes">
+            <i class="fas fa-users"></i> Pacientes
+        </a>
+        <a class="nav__link" href="#" data-page="citas">
+            <i class="fas fa-calendar-check"></i> Citas
+        </a>
+        <a class="nav__link" href="#" data-page="servicios">
+            <i class="fas fa-tooth"></i> Servicios
+        </a>
+        <a class="nav__link" href="#" data-page="reportes">
+            <i class="fas fa-chart-bar"></i> Reportes
+        </a>
+    </nav>
+
+    <!-- ==================== MODAL DE LOGIN ==================== -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-lock"></i> Acceso al Sistema</h2>
+                <p>Ingresa tus credenciales</p>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="field">
+                        <label><i class="fas fa-user"></i> Usuario</label>
+                        <input type="text" id="username" placeholder="admin / doctor / recepcion" required>
+                    </div>
+                    <div class="field">
+                        <label><i class="fas fa-key"></i> Contraseña</label>
+                        <input type="password" id="password" placeholder="********" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;">
+                        <i class="fas fa-sign-in-alt"></i> Ingresar
+                    </button>
+                </form>
+                <div class="login-demo">
+                    <p><small>Usuarios demo:</small></p>
+                    <p><small>admin / 1234 • doctor / 1234 • recepcion / 1234</small></p>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <nav class="nav" aria-label="Navegación principal">
-    <a class="nav__link active" href="#inicio" data-page="inicio">Inicio</a>
-    <a class="nav__link" href="#pacientes" data-page="pacientes">Pacientes</a>
-    <a class="nav__link" href="#citas" data-page="citas">Citas</a>
-    <a class="nav__link" href="#servicios" data-page="servicios">Servicios</a>
-  </nav>
+    <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+    <div class="layout">
+        <main class="main">
 
-  <div class="layout">
-    <main class="main">
-      <!-- INICIO -->
-      <section id="inicio" class="page">
-        <section class="card">
-          <h2>Home / Dashboard</h2>
-          <p>
-            Bienvenido/a. Desde este panel puedes registrar citas y visualizar información general del consultorio.
-          </p>
-        </section>
+            <!-- ************ DASHBOARD ************ -->
+            <section id="dashboard" class="page">
+                <!-- Métricas principales -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h3>Citas Hoy</h3>
+                            <i class="fas fa-calendar-day metric-icon"></i>
+                        </div>
+                        <div class="metric-value" id="citasHoyCount">0</div>
+                        <div class="metric-trend" id="citasHoyTrend"></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h3>Pacientes</h3>
+                            <i class="fas fa-user-injured metric-icon"></i>
+                        </div>
+                        <div class="metric-value" id="totalPacientes">0</div>
+                        <div class="metric-trend">Registrados</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h3>Próximas Citas</h3>
+                            <i class="fas fa-clock metric-icon"></i>
+                        </div>
+                        <div class="metric-value" id="proximasCitasCount">0</div>
+                        <div class="metric-trend">Próximas 24h</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h3>Ingresos Hoy</h3>
+                            <i class="fas fa-dollar-sign metric-icon"></i>
+                        </div>
+                        <div class="metric-value" id="ingresosHoy">RD$ 0</div>
+                        <div class="metric-trend">Estimado</div>
+                    </div>
+                </div>
 
-        <section class="card">
-          <h2>Registrar cita odontológica</h2>
+                <!-- Gráfico + citas rápidas -->
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-chart-line"></i> Citas Semanales</h2>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="citasChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-list"></i> Próximas Citas</h2>
+                            <button class="btn-small" onclick="cambiarPage('citas')">
+                                Ver todas <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="appointments-list" id="proximasCitasLista"></div>
+                    </div>
+                </div>
 
-          <form class="form">
-            <div class="field">
-              <label for="paciente">Nombre del paciente</label>
-              <input id="paciente" type="text" placeholder="Ej: Juan Pérez" required />
+                <!-- Accesos rápidos -->
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="abrirModalNuevoPaciente()">
+                        <i class="fas fa-user-plus"></i>
+                        <strong>Nuevo Paciente</strong>
+                        <small>Registro rápido</small>
+                    </button>
+                    <button class="action-btn" onclick="abrirModalNuevaCita()">
+                        <i class="fas fa-calendar-plus"></i>
+                        <strong>Nueva Cita</strong>
+                        <small>Agendar ahora</small>
+                    </button>
+                    <button class="action-btn" onclick="exportarDatos()">
+                        <i class="fas fa-download"></i>
+                        <strong>Exportar</strong>
+                        <small>Resumen JSON</small>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ************ PACIENTES ************ -->
+            <section id="pacientes" class="page hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-users"></i> Gestión de Pacientes</h2>
+                        <button class="btn-primary" onclick="abrirModalNuevoPaciente()">
+                            <i class="fas fa-plus"></i> Nuevo Paciente
+                        </button>
+                    </div>
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="buscarPaciente" placeholder="Buscar por nombre o teléfono..." class="search-input">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Email</th><th>F. Nacimiento</th><th>Última Visita</th><th>Acciones</th></tr>
+                            </thead>
+                            <tbody id="tablaPacientes"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ************ CITAS ************ -->
+            <section id="citas" class="page hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-calendar-alt"></i> Agenda de Citas</h2>
+                        <div class="card-actions">
+                            <select id="filtroCitas">
+                                <option value="hoy">Hoy</option>
+                                <option value="semana">Esta Semana</option>
+                                <option value="todas">Todas</option>
+                            </select>
+                            <button class="btn-primary" onclick="abrirModalNuevaCita()">
+                                <i class="fas fa-plus"></i> Nueva Cita
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Fecha</th><th>Hora</th><th>Paciente</th><th>Servicio</th><th>Estado</th><th>Acciones</th></tr>
+                            </thead>
+                            <tbody id="tablaCitas"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ************ SERVICIOS ************ -->
+            <section id="servicios" class="page hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-tooth"></i> Servicios Odontológicos</h2>
+                    </div>
+                    <div class="servicios-grid" id="serviciosLista"></div>
+                </div>
+            </section>
+
+            <!-- ************ REPORTES ************ -->
+            <section id="reportes" class="page hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-chart-pie"></i> Reportes y Estadísticas</h2>
+                        <button class="btn-primary" onclick="generarReporte()">
+                            <i class="fas fa-chart-line"></i> Actualizar
+                        </button>
+                    </div>
+                    <div class="reportes-grid">
+                        <div class="reporte-card">
+                            <h3>Citas por Servicio</h3>
+                            <canvas id="chartServicios" width="300" height="200"></canvas>
+                        </div>
+                        <div class="reporte-card">
+                            <h3>Ingresos por Mes</h3>
+                            <canvas id="chartIngresos" width="300" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ************ ASIDE (Panel rápido) ************ -->
+        <aside class="aside">
+            <h3><i class="fas fa-chart-simple"></i> Panel Rápido</h3>
+            <div class="aside-section">
+                <h4><i class="fas fa-clock"></i> Próximas Citas (Hoy)</h4>
+                <div id="asideProximasCitas"></div>
             </div>
-
-            <div class="field">
-              <label for="telefono">Teléfono</label>
-              <input id="telefono" type="tel" placeholder="Ej: 8090000000" required />
+            <div class="aside-section alerts">
+                <h4><i class="fas fa-exclamation-triangle"></i> Alertas</h4>
+                <div id="alertasContainer"></div>
             </div>
-
-            <div class="field">
-              <label for="fecha">Fecha</label>
-              <input id="fecha" type="date" required />
+            <div class="stats-mini">
+                <div class="stat-mini-item"><span>👥 Hoy</span><strong id="asideCitasHoy">0</strong></div>
+                <div class="stat-mini-item"><span>✅ Completadas</span><strong id="asideCompletadas">0</strong></div>
+                <div class="stat-mini-item"><span>⏳ Pendientes</span><strong id="asidePendientes">0</strong></div>
             </div>
+        </aside>
+    </div>
 
-            <div class="field">
-              <label for="hora">Hora</label>
-              <input id="hora" type="time" required />
+    <footer class="footer">
+        <p>© 2026 Clínica Odontológica Sonrisa | Sistema de Gestión Interna v2.0 | Grupo 4</p>
+    </footer>
+
+    <!-- ==================== MODALES ==================== -->
+    <!-- Modal Paciente -->
+    <div id="modalPaciente" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalPacienteTitulo"><i class="fas fa-user-plus"></i> Nuevo Paciente</h2>
+                <span class="close" onclick="cerrarModal('modalPaciente')">&times;</span>
             </div>
+            <form id="formPaciente">
+                <input type="hidden" id="pacienteId">
+                <div class="modal-body">
+                    <div class="field"><label>Nombre Completo *</label><input type="text" id="pacienteNombre" required></div>
+                    <div class="field"><label>Teléfono *</label><input type="tel" id="pacienteTelefono" placeholder="809-555-5555" required></div>
+                    <div class="field"><label>Email</label><input type="email" id="pacienteEmail"></div>
+                    <div class="field"><label>Fecha Nacimiento</label><input type="date" id="pacienteNacimiento"></div>
+                    <div class="field"><label>Dirección</label><input type="text" id="pacienteDireccion"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="cerrarModal('modalPaciente')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-            <div class="field field-full">
-              <label for="servicio">Servicio</label>
-              <select id="servicio" required>
-                <option value="">Selecciona un servicio</option>
-                <option>Limpieza dental</option>
-                <option>Blanqueamiento</option>
-                <option>Ortodoncia</option>
-                <option>Extracción</option>
-                <option>Empaste (resina)</option>
-                <option>Endodoncia</option>
-              </select>
+    <!-- Modal Cita -->
+    <div id="modalCita" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalCitaTitulo"><i class="fas fa-calendar-plus"></i> Nueva Cita</h2>
+                <span class="close" onclick="cerrarModal('modalCita')">&times;</span>
             </div>
+            <form id="formCita">
+                <input type="hidden" id="citaId">
+                <div class="modal-body">
+                    <div class="field"><label>Paciente *</label><select id="citaPacienteId" required></select></div>
+                    <div class="field"><label>Servicio *</label>
+                        <select id="citaServicio" required>
+                            <option value="">Seleccionar...</option>
+                            <option>Limpieza</option><option>Blanqueamiento</option><option>Ortodoncia</option>
+                            <option>Extracción</option><option>Endodoncia</option><option>Consulta</option>
+                        </select>
+                    </div>
+                    <div class="field"><label>Fecha *</label><input type="date" id="citaFecha" required></div>
+                    <div class="field"><label>Hora *</label><input type="time" id="citaHora" required></div>
+                    <div class="field"><label>Estado</label>
+                        <select id="citaEstado"><option>pendiente</option><option>confirmada</option><option>completada</option><option>cancelada</option></select>
+                    </div>
+                    <div class="field"><label>Observaciones</label><textarea id="citaObservaciones" rows="2"></textarea></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="cerrarModal('modalCita')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-            <div class="field field-full">
-              <label for="motivo">Motivo / Observación</label>
-              <input id="motivo" type="text" placeholder="Ej: dolor en muela, control, etc." required />
+    <!-- Modal Confirmar Eliminar -->
+    <div id="modalConfirmar" class="modal">
+        <div class="modal-content" style="max-width:400px">
+            <div class="modal-header"><h2><i class="fas fa-exclamation-triangle"></i> Confirmar</h2></div>
+            <div class="modal-body" id="confirmarMensaje">¿Estás seguro?</div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="cerrarModal('modalConfirmar')">Cancelar</button>
+                <button class="btn-danger" id="confirmarEliminarBtn">Eliminar</button>
             </div>
+        </div>
+    </div>
 
-            <button class="btn" type="submit">Guardar cita</button>
-          </form>
-        </section>
-      </section>
-
-      <!-- PACIENTES (puede quedar en blanco) -->
-      <section id="pacientes" class="page hidden" aria-hidden="true">
-        <section class="card">
-          <h2>Pacientes</h2>
-          <p class="muted">Sección disponible para la siguiente etapa.</p>
-        </section>
-      </section>
-
-      <!-- CITAS (puede quedar en blanco) -->
-      <section id="citas" class="page hidden" aria-hidden="true">
-        <section class="card">
-          <h2>Citas</h2>
-          <p class="muted">Sección disponible para la siguiente etapa.</p>
-        </section>
-      </section>
-
-      <!-- SERVICIOS (puede quedar en blanco) -->
-      <section id="servicios" class="page hidden" aria-hidden="true">
-        <section class="card">
-          <h2>Servicios</h2>
-          <p class="muted">Sección disponible para la siguiente etapa.</p>
-        </section>
-      </section>
-    </main>
-
-    <aside class="aside">
-      <h3>Información rápida</h3>
-      <ul class="aside__list">
-        <li><strong>Horario:</strong> 8:00 AM - 5:00 PM</li>
-        <li><strong>Teléfono:</strong> (809) 572-7275</li>
-        <li><strong>Recordatorio:</strong> Confirmar citas del día</li>
-      </ul>
-    </aside>
-  </div>
-
-  <footer class="footer">
-    <p>© 2026 Clínica Odontológica Sonrisa | Grupo 4</p>
-  </footer>
-  
+    <script src="script.js"></script>
+</body>
+</html>
 <script src="script.js"></script>
   
 </body>
