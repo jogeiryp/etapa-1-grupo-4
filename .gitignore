@@ -1,0 +1,20 @@
+# Archivos de configuracion con credenciales
+backend/config.php
+
+# Archivos temporales
+test.php
+info.php
+crear_usuarios.php
+generate_hash.php
+test_db.php
+*.tmp
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+backend/config.php
