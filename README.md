@@ -1,34 +1,45 @@
 # 🦷 Clínica Odontológica Sonrisa
 
-Sistema de gestión interna para clínica odontológica. Proyecto académico - Desarrollo de Aplicaciones Web.
+Sistema de gestión interna para clínica odontológica. Proyecto académico - Desarrollo de Aplicaciones Web Profesionales.
+
+---
+
+## 👥 Grupo 4
+
+**Integrantes:**
+- Stuart
+- Railyn
+- Smailyin
+- Ybanez
+- Joan
+- Adolfo
+- Jogeiry
+
+---
 
 ## 📋 Etapas Completadas
 
-- ✅ **Etapa 1:** Estructura Semántica y Estilización (HTML5, CSS3, Responsive)
-- ✅ **Etapa 2:** Lógica de Negocio y Eventos Complejos (JavaScript, localStorage)
-- ✅ **Etapa 3:** Arquitectura de Servidor y Persistencia (PHP, MySQL, API REST)
-- ⏳ **Etapa 4:** Próximamente
+| Etapa | Descripción | Estado |
+|-------|-------------|--------|
+| **Etapa 1** | Estructura Semántica y Estilización (HTML5, CSS3, Responsive) | ✅ Completada |
+| **Etapa 2** | Lógica de Negocio y Eventos Complejos (JavaScript, localStorage) | ✅ Completada |
+| **Etapa 3** | Arquitectura de Servidor y Persistencia (PHP, MySQL, API REST) | ✅ Completada |
+| **Etapa 4** | Estandarización, Frameworks y Entrega Final | ✅ Completada |
 
-## 🚀 Tecnologías
+---
+
+## 🚀 Tecnologías Utilizadas
 
 | Tecnología | Uso |
 |------------|-----|
-| HTML5 | Estructura semántica |
-| CSS3 | Estilos y responsive |
-| JavaScript | Interactividad y peticiones API |
+| HTML5 | Estructura semántica de la página |
+| CSS3 | Estilos y diseño responsive |
+| JavaScript | Interactividad y peticiones a la API |
 | PHP 8.x | Backend y API REST |
 | MySQL | Base de datos |
 | Chart.js | Gráficos dinámicos |
 | Font Awesome | Iconografía |
 
-## 🔧 Instalación Local
+---
 
-### Requisitos
-- XAMPP (Apache, MySQL, PHP)
-- Git (opcional)
-
-### Pasos
-
-1. Clonar el repositorio:
-```bash
-git clone https://github.com/TU_USUARIO/clinica-odontologica.git
+## 📁 Estructura del Proyecto
